@@ -1,8 +1,11 @@
-describe("Acessa JACAD - Aluno", () => {
-  it("passes", () => {
-    cy.visit("https://materdei.jacad.com.br/academico/aluno-v2/login");
-    cy.get("#login").type("fernando");
-    cy.get("#senha").type("123");
-    cy.get("#btn-login").click();
+describe("Unimater - teste de acesso do sistema - Aluno", () => {
+  it("Valida se o acesso ao painel de notas é possível", () => {
+    cy.visit(Cypress.config().baseUrl + "/aluno-v2/login");
+    cy.get("[id=login]").type(Cypress.env("usuario"));
+    cy.get("[id=senha]").type(Cypress.env("senha"));
+    cy.get("[id=btn-login]").click();
+    cy.get(".sidenav-link").contains("Acadêmico").click();
+    cy.get(".sidenav-link").contains("Notas").click();
+    cy.url().should("eq", Cypress.config().baseUrl + "/aluno-v2/notas/");
   });
 });
